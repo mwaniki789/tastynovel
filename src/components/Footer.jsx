@@ -21,11 +21,11 @@ const Footer = () => {
 
                 </div>
 
-                 <div class="col-md-4 text-center">
+            <div class="col-md-4 text-center text-dark">
                 <h4>Stay connected</h4>
                 <a href="https://www.facebook.com"><img src="images/fb.png" alt=""/></a>
                 <a href="https://www.instagram.com"><img src="images/in.png" alt=""/></a>
-                <a href="https://www.x.com"><img src="images/x.png" alt=""/></a>
+                <a href="https://www.x.com"><img src="images/x.png" alt=""/></a> <br />
                 <p class="mt-3">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio quia possimus at itaque quod illum adipisci pariatur quos facilis aut, deleniti error voluptatum corrupti nesciunt, quidem facere aliquam eos. Magnam?</p>
             </div>
 
