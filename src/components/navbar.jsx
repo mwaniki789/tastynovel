@@ -1,37 +1,103 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  // Check logged-in user safely
+  useEffect(() => {
+    try {
+      const loggedUser = localStorage.getItem("user");
+
+      if (loggedUser && loggedUser !== "undefined") {
+        setUser(JSON.parse(loggedUser));
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
+      console.error("Invalid user data in localStorage");
+      localStorage.removeItem("user");
+      setUser(null);
+    }
+  }, []);
+
+  // Logout function
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/signin");
+  };
+
   return (
-     <div className="App">
+    <div className="App">
       <header className="App-header">
         <h1>Tasty Novel</h1>
       </header>
 
-        <div className='row'>
+      <div className="row">
         <div className="col-md-12">
-            <div className="navbar navbar-expand-md navbar-light bg-light">
-                <Link to={"/"} className='navbar-brand'>Sweet 'n' Savery</Link>
-                <button  className='navbar-toggler' type='button' data-bs-toggle="collapse" data-bs-target="#navbarcollapse">
-                    <span className='navbar-toggler-icon'></span>
+          <div className="navbar navbar-expand-md navbar-light bg-light">
+            <Link to="/" className="navbar-brand">
+              Sweet 'n' Savery
+            </Link>
+
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarcollapse"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className="collapse navbar-collapse" id="navbarcollapse">
+              <div className="navbar-nav">
+
+                <Link to="/" className="nav-link active">
+                  Home
+                </Link>
+
+                <Link to="/addproduct" className="nav-link">
+                  Add Products
+                </Link>
+
+                {/* Not logged in */}
+                {!user && (
+                  <>
+                    <Link to="/signin" className="nav-link">
+                      Sign In
+                    </Link>
+
+                    <Link to="/signup" className="nav-link">
+                      Sign Up
+                    </Link>
+                  </>
+                )}
+
+                {/* Logged in */}
+                {user && (
+                  <div className="d-flex align-items-center">
+                    <span className="text-info me-3">
+                      Welcome {user.username}
+                    </span>
+
+                    <button
+                      className="btn btn-light text-dark"
+                      onClick={logout}
+                    >
+                      Sign Out
                     </button>
+                  </div>
+                )}
 
-                    <div className='collapse navbar-collapse' id="navbarcollapse">
-                        <div className='navbar-nav'>
-                            <Link to={'/'} className='nav-link active'>Home</Link>
-                            <Link to={'/addproduct'} className='nav-link'>Add Products</Link>
-                            <Link to={'/signup'} className='nav-link'>Signup</Link>
-                            <Link to={'/signin'} className='nav-link'>Signin</Link>
-                         
-                        </div>
-                    </div>
-                    
-
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
 export default Navbar;

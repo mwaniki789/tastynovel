@@ -6,7 +6,10 @@ import Navbar from './navbar'
 const MakePayment = () => {
     // destructure data passed to this component
     // retrieving/extracting product that has been pased for payment
-    const{product}=useLocation().state || {}
+    
+  const { state } = useLocation();
+
+  const { product, quantity, totalAmount } = state;
     console.log(product)
     const [phone,setPhone]=useState("")
     const[message,setMessage]=useState("")
@@ -44,9 +47,13 @@ const MakePayment = () => {
             <div className="card shadow">
                 <img src={img_url+product.product_photo} alt="" className='product_img' />
                 <div className="card-body">
-                <p className='text-muted'>Product Name:{product.product_name}</p>
-                <p className='text-muted'>product Desc:{product.product_description}</p>
-                <p className='text-warning'>Cost:{product.product_cost}</p>
+              <h2>{product.product_name}</h2>
+
+                 <p>Price: Ksh {product.product_cost}</p>
+
+                 <p>Quantity: {quantity}</p>
+
+                 <h3>Total Amount: Ksh {totalAmount}</h3>
 
                 <form onSubmit={submit}>
                     <p className='text-start text-primary'>Phone number to make payment</p>

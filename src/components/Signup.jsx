@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./navbar";
+import{Eye,EyeOff} from "lucide-react"
 
 const Signup = () => {
     // hooks to hold our inputs,will be updated later in our program
@@ -66,7 +67,20 @@ const Signup = () => {
 
                     <input type="tel" className="form-control" placeholder="Enter Phone Number" required value={phone} onChange={(e) => setPhone(e.target.value)} /> <br />
 
-                    <input type="password" className="form-control" placeholder="Enter your Password" required value={password} onChange={(e) => setPassword(e.target.value)} /> <br />
+                    <div className="password-container">
+                        <input
+                        className="form-control" required
+                         type={password ? "text" : "password"}
+                            placeholder="Enter your password"
+                    />
+
+                    <span
+                        className="icon"
+                        onClick={() => setPassword(!password)}
+                        >
+                        {password ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </span>
+                    </div> <br /> <br />
 
                     <button type="submit" className="btn btn-primary">Signup</button>
 

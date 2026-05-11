@@ -8,21 +8,28 @@ import Signin from './components/Signin';
 import AddProducts from './components/AddProducts';
 import MakePayment from './components/MakePayment';
 import GetProducts from './components/GetProducts';
+import Recipes from './components/Recipes';
+import { CartProvider } from './components/Cart';
+
 
 
 
 function App() {
   return (
+    
     <Router>
-       
-    <Routes>
-      <Route path='/signup' element={<Signup/>}/>
-      <Route path='/signin' element={<Signin/>}/>
-      <Route path='/addproduct' element={<AddProducts/>}/>
-      <Route path='/makepayment' element={<MakePayment/>}/>
-      <Route path='/' element={<GetProducts/>}/>
+     <CartProvider>
+      <Routes>
+        <Route path='/signup' element={<Signup/>}/>
+        <Route path='/signin' element={<Signin/>}/>
+        <Route path='/addproduct' element={<AddProducts/>}/>
+        <Route path='/makepayment' element={<MakePayment/>}/>
+        <Route path='/recipes' element={<Recipes/>}/>
+        <Route path='/' element={<GetProducts/>}/>
       
-    </Routes>
+      </Routes>
+    </CartProvider>  
+    
 
 
     
